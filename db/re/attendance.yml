@@ -51,7 +51,7 @@ Body:
         Amount: 5
       - Day: 17
         ItemId: 12522
-       Amount: 5
+        Amount: 5
       - Day: 18
         ItemId: 12523
         Amount: 5
