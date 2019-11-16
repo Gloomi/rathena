@@ -1451,6 +1451,13 @@ int char_make_new_char_sql(struct char_session_data* sd, char* name_, int str, i
 		return -2; // character account limit exceeded
 #endif
 
+	if( sd->group_id > 10 && sd->group_id < 99 ) {
+	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT 1 FROM `%s` WHERE `account_id` = '%d'", schema_config.char_db, sd->account_id) )
+		Sql_ShowDebug(sql_handle);
+	if( Sql_NumRows(sql_handle) >= 1 )
+		return -2; // character account limit exceeded
+	}
+
 	// check char slot
 	if( SQL_ERROR == Sql_Query(sql_handle, "SELECT 1 FROM `%s` WHERE `account_id` = '%d' AND `char_num` = '%d' LIMIT 1", schema_config.char_db, sd->account_id, slot) )
 		Sql_ShowDebug(sql_handle);
